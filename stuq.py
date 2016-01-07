@@ -80,7 +80,7 @@ def authenticate():
 
 
 def get_videos():
-    response = session.get(stuq_redirect_url)
+    session.get(stuq_redirect_url)
     response = session.get('http://www.stuq.org/my/courses/study/1015')
     soup = bs4.BeautifulSoup(response.text, 'html.parser')
     a_tag = soup.select('div.accordion a[href^=/courseware]')
@@ -99,7 +99,7 @@ def get_videos():
 
         tags = soup.select('h3.header')
         name = [tag.string for tag in tags]
-        video_dict['name'] = name[0]
+        video_dict['name'] =  re.sub(r'\s', '', name[0])
 
         video_url_list.append(video_dict)
 
